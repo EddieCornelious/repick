@@ -1,0 +1,8 @@
+{
+  "presets": ["env"],
+  "plugins": [["babel-plugin-transform-es3-member-expression-literals", {loose: true}], ["transform-react-jsx"], ["transform-es2015-modules-commonjs", {loose: true}],
+  ["babel-plugin-add-module-exports", {loose: true}], ["babel-plugin-transform-es3-property-literals", {loose : true}]
+  
+  
+  ]
+}

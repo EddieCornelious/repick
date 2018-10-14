@@ -1,8 +1,8 @@
 {
-  "name": "jeux-undo",
+  "name": "reselect",
   "version": "0.0.0",
-  "description": "Undo and Redo functionality for jeux apps",
-  "main": "lib/jeux-undo.js",
+  "description": "caches selectors",
+  "main": "lib/reselect.js",
   "scripts": {
     "build": "rimraf -rf lib .nyc_output && webpack --env dev && webpack --env build && npm run test",
     "dev": "webpack --progress --colors --watch --env dev",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EddieCornelious/jeux-undo.git"
+    "url": "https://github.com/EddieCornelious/reselect.git"
   },
   "keywords": [],
   "author": "Eddie Cornelious",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EddieCornelious/jeux-undo/issues"
+    "url": "https://github.com/EddieCornelious/reselect/issues"
   },
-  "homepage": "https://github.com/EddieCornelious/jeux-undo/",
+  "homepage": "https://github.com/EddieCornelious/reselect/",
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.51",
     "@babel/core": "^7.0.0-beta.51",
@@ -55,7 +55,6 @@
     "yargs": "^10.0.3"
   },
   "peerDependencies": {
-    "react": "^16.0.0-0"
   },
   "dependencies": {}
 }

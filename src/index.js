@@ -1,77 +1,32 @@
-function History() {
-  const past = [];
-  let present;
-  const future = [];
-  const arrayProto = Array.prototype;
-  const push = arrayProto.push.bind(past);
-  const unshift = arrayProto.unshift.bind(future);
-  const spliceCount = 1;
-
-  function undoOrRedo(doRedo) {
-    const array = doRedo ? future : past;
-    const add = doRedo ? push : unshift;
-
-    if (array.length > 0) {
-      const spliceIndex = doRedo ? 0 : array.length - 1;
-      const oldPresent = present;
-      const newPresent = array.splice(spliceIndex, spliceCount);
-
-      present = newPresent[0];
-      add(oldPresent);
-    }
+function assertDefined(obj) {
+  if (obj === undefined) {
+    throw new TypeError('selectors Cannot be undefined');
   }
-  function undo() {
-    undoOrRedo(false);
-  }
-
-  function redo() {
-    undoOrRedo(true);
-  }
-
-  function setActiveHistory(newPresent) {
-    present = newPresent;
-  }
-
-  function getActiveHistory() {
-    return present;
-  }
-
-  function addHistory(newHistory) {
-    past.push(newHistory);
-  }
-
-  function clearRedoStack() {
-    future.length = 0;
-  }
-
-  return {
-    undo,
-    redo,
-    setActiveHistory,
-    getActiveHistory,
-    addHistory,
-    clearRedoStack
-  };
 }
-export default function undoRedo(reducer) {
-  const history = new History();
+export default function createSelector(selectors, transform) {
+  let cache = [];
+  let oldTransformVal;
+  let shouldTransform = false;
 
-  return function(state, action) {
-    if (state === undefined) {
-      let initialState = reducer(state, action);
-
-      history.setActiveHistory(initialState);
-    } else if (action.type === 'UNDO') {
-      history.undo();
-    } else if (action.type === 'REDO') {
-      history.redo();
-    } else {
-      history.addHistory(history.getActiveHistory());
-      let newState = reducer(state, action);
-
-      history.setActiveHistory(newState);
-      history.clearRedoStack();
+  return function(state, ownProps) {
+    if (oldTransformVal === undefined) {
+      cache = selectors.map(e => e(state, ownProps));
+      shouldTransform = true;
     }
-    return history.getActiveHistory();
+    // check if anything changed
+    const newVals = selectors.map(e => e(state, ownProps));
+
+    for (let i = 0; i < cache.length; i += 1) {
+      if (cache[i] !== newVals[i]) {
+        cache[i] = newVals[i];
+        shouldTransform = true;
+      }
+    }
+    if (shouldTransform) {
+      oldTransformVal = transform.apply(null, cache);
+      assertDefined(oldTransformVal);
+    }
+    shouldTransform = false;
+    return oldTransformVal;
   };
 }

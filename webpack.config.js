@@ -24,7 +24,7 @@ const config = {
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
-    library: "JeuxUndo",
+    library: "Reselect",
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

@@ -1,8 +1,8 @@
 {
-  "name": "reselect",
+  "name": "repick",
   "version": "0.0.0",
   "description": "caches selectors",
-  "main": "lib/reselect.js",
+  "main": "lib/retake.js",
   "scripts": {
     "build": "rimraf -rf lib .nyc_output && webpack --env dev && webpack --env build && npm run test",
     "dev": "webpack --progress --colors --watch --env dev",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/EddieCornelious/reselect.git"
+    "url": "https://github.com/EddieCornelious/repick.git"
   },
   "keywords": [],
   "author": "Eddie Cornelious",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EddieCornelious/reselect/issues"
+    "url": "https://github.com/EddieCornelious/repick/issues"
   },
-  "homepage": "https://github.com/EddieCornelious/reselect/",
+  "homepage": "https://github.com/EddieCornelious/repick/",
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.51",
     "@babel/core": "^7.0.0-beta.51",

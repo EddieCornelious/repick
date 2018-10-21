@@ -24,7 +24,7 @@ const config = {
   output: {
     path: __dirname + '/lib',
     filename: outputFile,
-    library: "Reselect",
+    library: "Repick",
     libraryTarget: 'umd',
     umdNamedDefine: true
   },

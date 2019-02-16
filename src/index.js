@@ -3,12 +3,13 @@ function assertDefined(obj) {
     throw new TypeError('selectors Cannot be undefined');
   }
 }
-export default function createSelector(selectors, transform) {
+export function createSelector(selectors, transform) {
   let cache = [];
   let oldTransformVal;
-  let shouldTransform = false;
 
   return function(state, ownProps) {
+    let shouldTransform = false;
+
     if (oldTransformVal === undefined) {
       cache = selectors.map(e => e(state, ownProps));
       shouldTransform = true;
@@ -26,7 +27,6 @@ export default function createSelector(selectors, transform) {
       oldTransformVal = transform.apply(null, cache);
       assertDefined(oldTransformVal);
     }
-    shouldTransform = false;
     return oldTransformVal;
   };
 }
